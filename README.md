@@ -58,7 +58,7 @@ import matplotlib.pyplot as plt
 ```
 
 #### 讀取PTT文章資料
-在網頁爬蟲專案中，最後將爬取回來的文章資訊儲存在csv檔案中，因此第一步我們先將csv檔案匯入
+在網頁爬蟲專案中，最後將爬取回來的文章資訊儲存在csv檔案中，因此第一步我們先將csv檔案匯入。
 
 使用以下指令來匯入csv檔：
 ```python
@@ -66,6 +66,28 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("20231129_nissan_web_crawler.csv")
 ```
 
-#### 資料清理和預處理
-輿情分析的內容主要會著重在content(文章內容)跟comment(留言)欄位，在開始分析之前，一樣會需要針對文本數據進行前處理，以便進行後續的文本分析。清理的步驟包括刪除網址、HTML 標籤、非字母數字漢字空白字符以及換行符。
+#### 原文提取與清理
+輿情分析的內容主要會著重在content(文章內容)跟comment(留言)欄位，在開始分析之前，首先會需要針對文本數據進行前處理，以便進行後續的文本分析。清理的目的是移除所有非文字之資訊，清理步驟包括刪除網址、HTML 標籤、非字母數字漢字空白字符以及換行符，可視資料格式或分析需求新增或刪減清理邏輯。以下會透過迴圈分別針對每篇文章的內容以及留言進行格式清理，並將清理好的文字分別存進空的陣列中，以利後續步驟使用。
 
+使用以下指令來清理原文：
+```python
+esub_content=[]
+for i in df['content']:
+    http = re.compile(r'[http|https]*://[a-zA-Z0-9.?/&=:]*',re.S)
+    clean_text = re.sub(http, '', i)
+    clean_text = re.sub(r'<.*?>', '', clean_text)
+    clean_text = re.sub(r'[^a-zA-Z0-9\u4e00-\u9fa5\s]', '', clean_text)
+    clean_text = re.sub(r'\n', '', clean_text)
+    clean_text = re.sub(r' ', '', clean_text)
+    resub_content.append(clean_text)
+
+resub_comment=[]
+for i in df['comment']:
+    http = re.compile(r'[http|https]*://[a-zA-Z0-9.?/&=:]*',re.S)
+    clean_text = re.sub(http, '', i)
+    clean_text = re.sub(r'<.*?>', '', clean_text)
+    clean_text = re.sub(r'[^a-zA-Z0-9\u4e00-\u9fa5\s]', '', clean_text)
+    clean_text = re.sub(r'\n', '', clean_text)
+    clean_text = re.sub(r' ', '', clean_text)
+    resub_comment.append(clean_text)
+```
