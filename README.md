@@ -71,7 +71,10 @@ df = pd.read_csv("20231129_nissan_web_crawler.csv")
 
 使用以下指令來清理原文：
 ```python
-esub_content=[]
+#建立一個空的陣列，用於存放清理好的文章內容
+resub_content=[]
+
+#透過迴圈將文章內容進行清理後，依序存進陣列中
 for i in df['content']:
     http = re.compile(r'[http|https]*://[a-zA-Z0-9.?/&=:]*',re.S)
     clean_text = re.sub(http, '', i)
@@ -81,7 +84,10 @@ for i in df['content']:
     clean_text = re.sub(r' ', '', clean_text)
     resub_content.append(clean_text)
 
+#建立一個空的陣列，用於存放清理好的留言
 resub_comment=[]
+
+#透過迴圈將留言進行清理後，依序存進陣列中
 for i in df['comment']:
     http = re.compile(r'[http|https]*://[a-zA-Z0-9.?/&=:]*',re.S)
     clean_text = re.sub(http, '', i)
