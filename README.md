@@ -97,3 +97,7 @@ for i in df['comment']:
     clean_text = re.sub(r' ', '', clean_text)
     resub_comment.append(clean_text)
 ```
+
+#### 資料預處理
+自然語言的預處理又分成好幾個階段，基本的前處理步驟包括斷詞(Tokenization)、移除停用詞、詞幹提取(Stemming)、詞形還原(Lemmatization)等等，一樣可視資料格式或分析需求新增或刪減清理邏輯。接下來將針對基本的前處理步驟依序介紹。
+##### 斷詞(Tokenization)
