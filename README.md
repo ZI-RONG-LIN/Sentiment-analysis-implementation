@@ -164,3 +164,30 @@ print("/ ".join(seg_list))
 <p align="center">
 <img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%96%B7%E8%A9%9E%E5%AD%97%E5%85%B8.png">
 </p>
+
+##### 移除停用詞
+Stop Words(停用詞)是指那些在處理文本時被視為無意義或無助於理解文本內容的常見詞語。這些詞通常是高頻率的、普遍存在的詞，但它們並未提供太多的上下文資訊，因此在進行文本分析時，可以將它們排除，以提高模型的效能並降低處理的複雜性。常見的停用詞像是：的/了/是/在/可以/但是等等的單詞，一樣可視分析目的排除停用詞，另外也可以自透過自定義停用詞字典來快速移除大量不必要的單詞。
+```python
+# 開啟停用詞字典 
+f = open('/停用詞-繁體中文.txt', encoding='utf8')
+# 讀取停用詞字典 
+data = f.read() 
+# 使用換行符號分割
+stop_words = data.split("\n") 
+f.close()
+
+# 開啟停用詞字典 
+token_content = []
+for i in resub_content:
+    tokens = jieba.cut(i)
+    text = [word for word in tokens if word not in stop_words]
+    text = ' '.join(text)
+    token_content.append(text)
+    
+token_comment = []
+for i in resub_comment:
+    tokens = jieba.cut(i)
+    text = [word for word in tokens if word not in stop_words]
+    text = ' '.join(text)
+    token_comment.append(text)
+```
