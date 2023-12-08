@@ -176,15 +176,18 @@ data = f.read()
 stop_words = data.split("\n") 
 f.close()
 
-# 開啟停用詞字典 
+# 建立一個空的陣列，用於存放預處理後的文章內容 
 token_content = []
+# 透過迴圈將先前已清理過的內容進行斷詞及排除停用詞
 for i in resub_content:
     tokens = jieba.cut(i)
     text = [word for word in tokens if word not in stop_words]
     text = ' '.join(text)
     token_content.append(text)
-    
+
+ # 建立一個空的陣列，用於存放預處理後的留言   
 token_comment = []
+# 透過迴圈將先前已清理過的留言進行斷詞及排除停用詞
 for i in resub_comment:
     tokens = jieba.cut(i)
     text = [word for word in tokens if word not in stop_words]
