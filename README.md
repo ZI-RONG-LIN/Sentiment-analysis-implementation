@@ -63,7 +63,7 @@ import matplotlib.pyplot as plt
 使用以下指令來匯入csv檔：
 ```python
 # 資料讀取
-df = pd.read_csv("20231129_nissan_web_crawler.csv")
+df = pd.read_csv("/nissan_web_crawler.csv")
 ```
 
 #### 原文提取與清理
@@ -151,3 +151,16 @@ print("/ ".join(seg_list))
 <img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E6%A8%A1%E5%BC%8F.png">
 </p>
 
+可以看到由於語句中含有特定品牌或是汽車領域用語，斷詞上還是會有些許誤差，因此可以透過自行加入一些跟汽車相關的用語來定義斷詞字典，調整分詞的結果，接著再使用斷詞語法即可看到事先定義的單詞已經成功被正確切割開來。
+4. 自定義斷詞字典
+```python
+#使用切換詞庫的功能來改善斷詞結果。
+jieba.set_dictionary('/dict.txt.big')
+print("精確模式：")
+seg_list = jieba.cut(text, cut_all=False)  # 精確模式
+print("/ ".join(seg_list)) 
+```
+斷詞結果如下：
+<p align="center">
+<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E8%87%AA%E5%AE%9A%E7%BE%A9%E6%96%B7%E8%A9%9E%E5%AD%97%E5%85%B8.png">
+</p>
