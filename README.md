@@ -108,16 +108,46 @@ for i in df['comment']:
 ###### Jieba套件介紹
 Jieba是一個開源的Python套件，經常被用來進行中文斷詞的套件，它支援多種斷詞模式（精確模式、全模式與搜尋引擎）。由於此套件最初是由中國百度的開發者開發，因此其核心為簡體中文，但由於其開源的特性，陸陸續續也有台灣的開發者補上繁體中文的部分，因此目前Jieba已經可以支援簡體和繁體中文的斷詞。另外，若對Jieba的斷詞結果不滿意時，也可以自行加入特定單詞或者是自行定義字典，調整分詞的結果。
 
-前面有提到Jieba支援不同的斷詞模式:
-1. 精確模式：是最基本的分詞模式，它通常用於對文本進行細粒度的分詞。在這種模式下，jieba 會儘量將句子切分成最小的詞語，也是jieba斷詞的預設模式。
-* 優點：適用於對文本進行精確的分詞，產生的詞語相對較短。
-* 缺點：可能無法處理一些特殊的詞彙或慣用語。
-2. 全模式：jieba 會將句子中所有可能的詞語都列出來，不考慮詞語的連貫性。
+前面有提到Jieba支援不同的斷詞模式，接下來會用以下這段文字來呈現各模式的分詞結果：
+```python
+text='日產門市人員專業度佳 試乘體驗好\n我買智駕版和雙色精裝配備原廠電子後視鏡 這台內裝有氣氛燈用久了很值得'
+```
+1. 全模式：jieba 會將句子中所有可能的詞語都列出來，不考慮詞語的連貫性。
 * 優點：能夠涵蓋句子中的所有可能詞語。
 * 缺點：產生的詞語可能過多，且包含了一些不必要的詞。
+```python
+  print("全模式：")
+  seg_list = jieba.cut(text, cut_all=True) # 全模式
+  print("/ ".join(seg_list))  
+  ```
+斷詞結果如下：
+<p align="center">
+<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E5%85%A8%E6%A8%A1%E5%BC%8F.png">
+</p>
+
+精確模式：是最基本的分詞模式，它通常用於對文本進行細粒度的分詞。在這種模式下，jieba 會儘量將句子切分成最小的詞語，也是jieba斷詞的預設模式。
+* 優點：適用於對文本進行精確的分詞，產生的詞語相對較短。
+* 缺點：可能無法處理一些特殊的詞彙或慣用語。
+```python
+print("精確模式：")
+seg_list = jieba.cut(text, cut_all=False)  # 精確模式
+print("/ ".join(seg_list)) 
+```
+斷詞結果如下：
+<p align="center">
+<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E7%B2%BE%E7%A2%BA%E6%A8%A1%E5%BC%8F.png">
+</p>
+
 3. 搜尋引擎模式：搜尋引擎模式在精確模式的基礎上，對長詞進行再次切分，以提高召回率，適合用於搜尋引擎。
 * 優點：針對長詞進行再次切分，提高召回率。
 * 缺點：可能會出現一些不必要的短詞。
-
-
+```python
+print("搜索引擎模式：")
+seg_list = jieba.cut_for_search(text)  # 搜索引擎模式
+print("/ ".join(seg_list)) 
+```
+斷詞結果如下：
+<p align="center">
+<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E6%A8%A1%E5%BC%8F.png">
+</p>
 
