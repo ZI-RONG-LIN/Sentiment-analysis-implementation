@@ -224,9 +224,10 @@ negative_avgscore_content = mean(x for x in sentiment_score_content if x <0.5)
 total_label = 'Positive' if mean(sentiment_score_content) > 0.5 else 'Negative' if mean(sentiment_score_content) < 0.5 else 'Neutral'
 
 print("文章內容分析結果如下：")
-print(f"整體文章情緒：{total_label} (整體平均情感分數:{mean(sentiment_score_content)})")
-print(f"正面文章數量：{positive_count_content} (平均情感分數: {positive_avgscore_content})")
-print(f"負面文章數量：{negative_count_content} (平均情感分數: {negative_avgscore_content})")
+print(f"整體文章情緒：{total_label} (整體平均情感分數:{mean(sentiment_score_content):.2f})")
+print(f"正面文章數量：{positive_count_content} (平均情感分數: {positive_avgscore_content:.2f})")
+print(f"負面文章數量：{negative_count_content} (平均情感分數: {negative_avgscore_content:.2f})")
+
 
 # 建立空的陣列存放針對"留言內容"分析後的情感標籤及分數
 sentiment_score_comment=[]
@@ -251,9 +252,10 @@ total_label = 'Positive' if mean(sentiment_score_comment) > 0.5 else 'Negative' 
 
 print()
 print("留言內容分析結果如下：")
-print(f"整體留言情緒：{total_label} (整體平均情感分數:{mean(sentiment_score_comment)})")
-print(f"正面留言數量：{positive_count_comment} (平均情感分數: {positive_avgscore_comment})")
-print(f"負面留言數量：{negative_count_comment} (平均情感分數: {negative_avgscore_comment})")
-```
+print(f"整體留言情緒：{total_label} (整體平均情感分數:{mean(sentiment_score_comment):.2f})")
+print(f"正面留言數量：{positive_count_comment} (平均情感分數: {positive_avgscore_comment:.2f})")
+print(f"負面留言數量：{negative_count_comment} (平均情感分數: {negative_avgscore_comment:.2f})")
 
+```
+看來 Nissan 在品牌形象的部分還有努力的空間
 
