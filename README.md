@@ -194,3 +194,66 @@ for i in resub_comment:
     text = ' '.join(text)
     token_comment.append(text)
 ```
+#### 情感分析
+經過前面的資料清理後，終於來到這個專案的重點部分，也就是輿情分析。這邊我們使用SnowNLP套件，如同先前的介紹，SnowNLP主要被應用在分析中文文本，裡頭包括了情感分析、詞性標註、文本分類等模組，用於情感分析的模組可透過SnowNLP.sentiments進行引用。SnowNLP.sentiments主要透過返回一個介於 0 到 1 之間的浮點數，來表達輸入文本的情感分數。分數越接近 1，表示正面情感越強；分數越接近 0，表示負面情感越強；分數為 0.5，表示為中立情緒。
+
+不知道大家有沒有常常逛評論區的習慣，由於文章本身的內容與留言區的評論可能會因為每個人的想法不同，有時候文章內容與底下留言討論的風向會有極大的差異，因此我會將文章的本身內容的輿情以及留言討論區的輿情區分開來觀察。透過以下語法可以快速了解文章整體的輿情狀況以及情感分數，並統計正、負面文章分別有幾篇，且將情感分數呈現出來。若想更進一步將每篇文章一一列出觀察也可以，但由於爬回來的文章數量也不少，因此這個部分就不逐一列出，這部分有附上相關語法，有興趣的人可以嘗試印出觀察看看。
+
+使用以下指令來進行情感分析：
+```python
+# 建立空的陣列存放針對文章內容分析後的情感標籤及分數
+sentiment_score_content=[]
+sentiment_label_content=[]
+
+# 透過迴圈依序針對"文章內容"進行情感分析
+for i in token_content:
+    s = SnowNLP(i)
+    sentiment_score = s.sentiments
+    sentiment_label = 'Positive' if sentiment_score > 0.5 else 'Negative' if sentiment_score < 0.5 else 'Neutral'
+    sentiment_score_content.append(sentiment_score)
+    sentiment_label_content.append(sentiment_label)
+    # 若想知道每篇文章個別的情感分數與結果可使用此語法印出:print(f"文章內容情感分析結果：{sentiment_label} (情感分數: {sentiment_score})")
+
+# 統計正負面文章數量
+positive_count_content = sum(1 for label in sentiment_label_content if label == 'Positive')
+negative_count_content = sum(1 for label in sentiment_label_content if label == 'Negative')
+
+# 統計正負面文章情感分數，數字越接近0或1，代表情緒越強烈
+positive_avgscore_content = mean(x for x in sentiment_score_content if x >0.5)
+negative_avgscore_content = mean(x for x in sentiment_score_content if x <0.5)
+total_label = 'Positive' if mean(sentiment_score_content) > 0.5 else 'Negative' if mean(sentiment_score_content) < 0.5 else 'Neutral'
+
+print("文章內容分析結果如下：")
+print(f"整體文章情緒：{total_label} (整體平均情感分數:{mean(sentiment_score_content)})")
+print(f"正面文章數量：{positive_count_content} (平均情感分數: {positive_avgscore_content})")
+print(f"負面文章數量：{negative_count_content} (平均情感分數: {negative_avgscore_content})")
+
+# 建立空的陣列存放針對"留言內容"分析後的情感標籤及分數
+sentiment_score_comment=[]
+sentiment_label_comment=[]
+# 透過迴圈依序針對"留言內容"進行情感分析
+for i in token_comment:
+    s = SnowNLP(i)
+    sentiment_score = s.sentiments
+    sentiment_label = 'Positive' if sentiment_score > 0.5 else 'Negative' if sentiment_score < 0.5 else 'Neutral'
+    sentiment_score_comment.append(sentiment_score)
+    sentiment_label_comment.append(sentiment_label)
+    #print(f"文章留言情感分析結果：{sentiment_label} (情感分數: {sentiment_score})")
+
+# 統計數量
+positive_count_comment = sum(1 for label in sentiment_label_comment if label == 'Positive')
+negative_count_comment = sum(1 for label in sentiment_label_comment if label == 'Negative')
+
+# 統計情感分數，數字越接近0或1，代表情緒越強烈
+positive_avgscore_comment = mean(x for x in sentiment_score_comment if x >0.5)
+negative_avgscore_comment = mean(x for x in sentiment_score_comment if x <0.5)
+total_label = 'Positive' if mean(sentiment_score_comment) > 0.5 else 'Negative' if mean(sentiment_score_comment) < 0.5 else 'Neutral'
+
+print()
+print("留言內容分析結果如下：")
+print(f"整體留言情緒：{total_label} (整體平均情感分數:{mean(sentiment_score_comment)})")
+print(f"正面留言數量：{positive_count_comment} (平均情感分數: {positive_avgscore_comment})")
+print(f"負面留言數量：{negative_count_comment} (平均情感分數: {negative_avgscore_comment})")
+```
+
+
