@@ -257,5 +257,42 @@ print(f"正面留言數量：{positive_count_comment} (平均情感分數: {posi
 print(f"負面留言數量：{negative_count_comment} (平均情感分數: {negative_avgscore_comment:.2f})")
 
 ```
-看來 Nissan 在品牌形象的部分還有努力的空間
+分析結果如下：
+<p align="left">
+<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E6%AD%A3%E8%B2%A0%E6%96%87%E7%AB%A0%E6%95%B8%E9%87%8F.png" width="350" height="150">
+</p>
 
+#### 文本主題及關鍵字分析
+接著，我們將進一步分析文章內容及留言中的主題以及關鍵字，這樣的分析可以幫助我們更快的理解內容談論的重點資訊為何，也可以更快速的幫助我們篩選出那些我們關注的議題。
+
+使用以下指令來進行文本主題及關鍵字分析：
+```python
+#創建了一個 TF-IDF（Term Frequency-Inverse Document Frequency） 向量化器。
+tfidf_vectorizer = TfidfVectorizer()
+#將文檔轉換為 TF-IDF 矩陣
+tfidf_matrix = tfidf_vectorizer.fit_transform([token_comment[10]])
+#創建了一個 Latent Dirichlet Allocation (LDA) 主題模型，設置主題數量為 1。
+lda = LatentDirichletAllocation(n_components=1, random_state=42)
+#使用 LDA 模型擬合 TF-IDF 矩陣，發現文檔中的主題
+lda.fit(tfidf_matrix)
+
+# 顯示主題詞彙
+# 獲取 TF-IDF 向量化器中的特徵名稱，即詞彙。
+feature_names = tfidf_vectorizer.get_feature_names_out()
+# 找到每個主題中權重最高的前 10 個詞彙的索引。
+top_keywords_idx = lda.components_[0].argsort()[:-10 - 1:-1]
+# 根據索引獲取詞彙名稱，得到每個主題的前 10 個關鍵詞。
+top_keywords = [feature_names[i] for i in top_keywords_idx]
+# 印出主題分析結果，即每個主題的前 10 個詞彙。
+print(f"主題分析結果：{', '.join(top_keywords)}")
+
+print()
+# 使用 jieba 提取文本中的關鍵詞，限定詞性為名詞。
+keywords = jieba.analyse.extract_tags(token_comment[10], topK=10, withWeight=True, allowPOS=('n', 'nr', 'ns'))
+# 印出關鍵詞提取結果，即文本中的前 10 個關鍵詞及其權重。
+print(f"關鍵詞提取結果：{keywords}")
+```
+分析結果如下：
+<p align="left">
+<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E4%B8%BB%E9%A1%8C%E5%8F%8A%E9%97%9C%E9%8D%B5%E5%AD%97%E5%88%86%E6%9E%90.png" width="1000" height="150">
+</p>
