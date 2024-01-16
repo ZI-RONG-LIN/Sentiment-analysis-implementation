@@ -294,5 +294,5 @@ print(f"關鍵詞提取結果：{keywords}")
 ```
 分析結果如下：
 <p align="left">
-<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E4%B8%BB%E9%A1%8C%E5%8F%8A%E9%97%9C%E9%8D%B5%E5%AD%97%E5%88%86%E6%9E%90.png" width="1000" height="150">
+<img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E4%B8%BB%E9%A1%8C%E5%8F%8A%E9%97%9C%E9%8D%B5%E5%AD%97%E5%88%86%E6%9E%90.png" width="1000" height="100">
 </p>
