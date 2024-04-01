@@ -296,3 +296,15 @@ print(f"關鍵詞提取結果：{keywords}")
 <p align="left">
 <img src="https://github.com/ZI-RONG-LIN/Sentiment-analysis-implementation/blob/main/img/%E4%B8%BB%E9%A1%8C%E5%8F%8A%E9%97%9C%E9%8D%B5%E5%AD%97%E5%88%86%E6%9E%90.png" width="1000" height="100">
 </p>
+
+#### 結語
+對於品牌端來說，品牌形象會影響消費者的觀感，同時也會影響著消費者購買產品的意願，因此了解市場上消費者的感受可以幫助我們去審視品牌的形象以及擬定改善策略。本次我們透過分析PTT上的討論文章,分析社群上對於裕隆日產品牌之感受，透過獲取文章的關鍵字，發現到普遍市場上的消費者對於汽車的價格、配件以及妥善率的討論是十分熱烈的，最常看到的針對不同品牌之間的比較，透過這樣的分析也可以幫助我們了解從消費者的角度，是如何比較不同品牌之間的產品。
+
+而在情緒分析中，我們計算出每篇文章及留言的正負面情緒，可以發現在我們收集的資料中，70%的文章及留言以負面情緒為主，顯示消費者對於此品牌的滿意度仍有待加強，同時，也注意到正面留言的數量是高於正面文章的數量，代表著雖然發文者本身對於品牌的滿意度不佳，但仍有一部份的留言者持不同的意見，這樣的發現也可以幫助我們更進一步分析品牌的優劣勢為何。
+
+#### Reference
+
+1. 分詞字典 https://github.com/fxsjy/jieba/blob/master/extra_dict/dict.txt.big
+2. 停用詞 https://github.com/NickYuu/Machine-Learning-1/tree/master/data
+3. 中文文字雲 https://github.com/victorgau/wordcloud/blob/master/SourceHanSansTW-Regular.otf
+    
